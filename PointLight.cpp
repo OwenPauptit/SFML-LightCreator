@@ -6,20 +6,20 @@
 #include <vector>
 #include <iostream>
 
-PointLight::PointLight(double rayNum, int intens, int ox, int oy) {
+PointLight::PointLight(double rayNum, int intens, int ox, int oy, std::vector<OpaqueObject> obj) {
 	originX = ox;
 	originY = oy;
 	intensity = intens;
 	numRays = rayNum;
 	angle = 360 / rayNum;
-	std::cout << angle << std::endl;
+	//std::cout << angle << std::endl;
 	double currentAngle = 0, x, y, temp;
 	std::vector<std::vector<double>> coords;
 	std::vector<double> t;
 
 	for (int r = 0; r < numRays; r++) {
 		currentAngle += angle;
-		std::cout << currentAngle << std::endl;
+		//std::cout << currentAngle << std::endl;
 		if (currentAngle == 0 || currentAngle == 360) {
 			y = -1 * intensity;
 			x = 0;
@@ -61,6 +61,6 @@ PointLight::PointLight(double rayNum, int intens, int ox, int oy) {
 		coords.push_back(t);
 	}
 	for (int i = 0; i < coords.size(); i++) {
-		light.push_back(LightRay(originX, originY, coords[i][0], coords[i][1]));
+		light.push_back(LightRay(originX, originY, coords[i][0], coords[i][1], obj));
 	}
 }
